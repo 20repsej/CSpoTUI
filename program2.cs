@@ -5,11 +5,19 @@ class CSpoTUI {
     static void Main (){
 
         Application.Init();
+        var Main = Application.Top;
         var Search = Application.Top;
         var Library = Application.Top;
         var Playlists = Application.Top;
         var MainWin = Application.Top;
         var Player = Application.Top;
+
+        var MainWindow = new Window ("CSpoTUI"){
+            X = 0,
+            Y = 0,
+            Width = Dim.Percent(100),
+            Height = Dim.Percent(100)
+        };
 
         var SearchWin = new Window ("Search"){
             X = 0,
@@ -56,13 +64,17 @@ class CSpoTUI {
                 })
             }),
         });
-        Search.Add(menu);
+        Main.Add(menu);
+
+        //var Progress = new ProgressBar ();
+        
+       // Player.Add(Progress);
 
        // var search = new Label ("Search") {X = Pos.Percent(30), Y = 1};
-        var searchText = new TextField (""){X = Pos.Right(SearchWin), Y = Pos.Top(SearchWin), Width = 10, Height = 2};
+       // var searchText = new TextField ("Search"){X = 0, Y = Pos.Right(SearchWin), Width = Dim.Percent(100), Height = Dim.Percent(100)};
 
-        Search.Add(searchText);
-
+       // Search.Add(searchText);
+      //  Search.ColorScheme = Colors.Dialog;
         Application.Run();
 
 
