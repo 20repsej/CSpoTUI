@@ -1,0 +1,14 @@
+/home/jesper/CSpoTUI/bin/Debug/netcoreapp3.1/CSpoTUI
+/home/jesper/CSpoTUI/bin/Debug/netcoreapp3.1/CSpoTUI.deps.json
+/home/jesper/CSpoTUI/bin/Debug/netcoreapp3.1/CSpoTUI.runtimeconfig.json
+/home/jesper/CSpoTUI/bin/Debug/netcoreapp3.1/CSpoTUI.runtimeconfig.dev.json
+/home/jesper/CSpoTUI/bin/Debug/netcoreapp3.1/CSpoTUI.dll
+/home/jesper/CSpoTUI/bin/Debug/netcoreapp3.1/CSpoTUI.pdb
+/home/jesper/CSpoTUI/bin/Debug/netcoreapp3.1/NStack.dll
+/home/jesper/CSpoTUI/bin/Debug/netcoreapp3.1/Terminal.Gui.dll
+/home/jesper/CSpoTUI/obj/Debug/netcoreapp3.1/CSpoTUI.csprojAssemblyReference.cache
+/home/jesper/CSpoTUI/obj/Debug/netcoreapp3.1/CSpoTUI.AssemblyInfoInputs.cache
+/home/jesper/CSpoTUI/obj/Debug/netcoreapp3.1/CSpoTUI.AssemblyInfo.cs
+/home/jesper/CSpoTUI/obj/Debug/netcoreapp3.1/CSpoTUI.csproj.CopyComplete
+/home/jesper/CSpoTUI/obj/Debug/netcoreapp3.1/CSpoTUI.dll
+/home/jesper/CSpoTUI/obj/Debug/netcoreapp3.1/CSpoTUI.pdb

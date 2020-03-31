@@ -1,0 +1,176 @@
+{
+  "version": 3,
+  "targets": {
+    ".NETCoreApp,Version=v3.1": {
+      "NStack.Core/0.11.0": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard1.5/NStack.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.5/NStack.dll": {}
+        }
+      },
+      "System.ValueTuple/4.4.0": {
+        "type": "package",
+        "compile": {
+          "ref/netcoreapp2.0/_._": {}
+        },
+        "runtime": {
+          "lib/netcoreapp2.0/_._": {}
+        }
+      },
+      "Terminal.Gui/0.70.0": {
+        "type": "package",
+        "dependencies": {
+          "NStack.Core": "0.11.0",
+          "System.ValueTuple": "4.4.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/Terminal.Gui.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Terminal.Gui.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "NStack.Core/0.11.0": {
+      "sha512": "LQrIt/ZS1+CXAXDN/1nEZuoyOEyrAqQVD9r5sWce22JkwMOHc3NUq1FmBkKdCjZzWJcooupMPvc8IQuQqADSRg==",
+      "type": "package",
+      "path": "nstack.core/0.11.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard1.5/NStack.dll",
+        "nstack.core.0.11.0.nupkg.sha512",
+        "nstack.core.nuspec"
+      ]
+    },
+    "System.ValueTuple/4.4.0": {
+      "sha512": "BahUww/+mdP4ARCAh2RQhQTg13wYLVrBb9SYVgW8ZlrwjraGCXHGjo0oIiUfZ34LUZkMMR+RAzR7dEY4S1HeQQ==",
+      "type": "package",
+      "path": "system.valuetuple/4.4.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/MonoAndroid10/_._",
+        "lib/MonoTouch10/_._",
+        "lib/net461/System.ValueTuple.dll",
+        "lib/net461/System.ValueTuple.xml",
+        "lib/net47/System.ValueTuple.dll",
+        "lib/net47/System.ValueTuple.xml",
+        "lib/netcoreapp2.0/_._",
+        "lib/netstandard1.0/System.ValueTuple.dll",
+        "lib/netstandard1.0/System.ValueTuple.xml",
+        "lib/netstandard2.0/_._",
+        "lib/portable-net40+sl4+win8+wp8/System.ValueTuple.dll",
+        "lib/portable-net40+sl4+win8+wp8/System.ValueTuple.xml",
+        "lib/xamarinios10/_._",
+        "lib/xamarinmac20/_._",
+        "lib/xamarintvos10/_._",
+        "lib/xamarinwatchos10/_._",
+        "ref/MonoAndroid10/_._",
+        "ref/MonoTouch10/_._",
+        "ref/net461/System.ValueTuple.dll",
+        "ref/net461/System.ValueTuple.xml",
+        "ref/net47/System.ValueTuple.dll",
+        "ref/net47/System.ValueTuple.xml",
+        "ref/netcoreapp2.0/_._",
+        "ref/netstandard2.0/_._",
+        "ref/portable-net40+sl4+win8+wp8/System.ValueTuple.dll",
+        "ref/portable-net40+sl4+win8+wp8/System.ValueTuple.xml",
+        "ref/xamarinios10/_._",
+        "ref/xamarinmac20/_._",
+        "ref/xamarintvos10/_._",
+        "ref/xamarinwatchos10/_._",
+        "system.valuetuple.4.4.0.nupkg.sha512",
+        "system.valuetuple.nuspec",
+        "useSharedDesignerContext.txt",
+        "version.txt"
+      ]
+    },
+    "Terminal.Gui/0.70.0": {
+      "sha512": "pJ6pfv4QXostD6fe1p86bEZm71LY0a7il9cjl0jb1n3z8USIhxNQkbZQLbAuq8dDVD/8VKJNsLohL2T1JnOh3w==",
+      "type": "package",
+      "path": "terminal.gui/0.70.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net461/Terminal.Gui.dll",
+        "lib/net461/Terminal.Gui.xml",
+        "lib/netstandard2.0/Terminal.Gui.dll",
+        "lib/netstandard2.0/Terminal.Gui.xml",
+        "terminal.gui.0.70.0.nupkg.sha512",
+        "terminal.gui.nuspec"
+      ]
+    }
+  },
+  "projectFileDependencyGroups": {
+    ".NETCoreApp,Version=v3.1": [
+      "Terminal.Gui >= 0.70.0"
+    ]
+  },
+  "packageFolders": {
+    "/home/jesper/.nuget/packages/": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "/home/jesper/CSpoTUI/CSpoTUI.csproj",
+      "projectName": "CSpoTUI",
+      "projectPath": "/home/jesper/CSpoTUI/CSpoTUI.csproj",
+      "packagesPath": "/home/jesper/.nuget/packages/",
+      "outputPath": "/home/jesper/CSpoTUI/obj/",
+      "projectStyle": "PackageReference",
+      "configFilePaths": [
+        "/home/jesper/.nuget/NuGet/NuGet.Config"
+      ],
+      "originalTargetFrameworks": [
+        "netcoreapp3.1"
+      ],
+      "sources": {
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "projectReferences": {}
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      }
+    },
+    "frameworks": {
+      "netcoreapp3.1": {
+        "dependencies": {
+          "Terminal.Gui": {
+            "target": "Package",
+            "version": "[0.70.0, )"
+          }
+        },
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          }
+        },
+        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.1.103/RuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}
