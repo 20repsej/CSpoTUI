@@ -1,10 +1,88 @@
-﻿/*using Terminal.Gui;
+﻿using Terminal.Gui;
 
-class Demo
+
+
+
+
+class CSpoTUI
 {
+    string[] testText = new string[] { "Sak1", "Sak2", "Sak3", "Sak4" };
+
     static void Main()
     {
+
+
+
+
         Application.Init();
+        var top = new Toplevel(){
+            X = 0, Y = 0, Width = Dim.Fill(), Height = Dim.Fill()
+        };
+        var Search = Application.Top;
+        var Library = Application.Current;
+        var Playlists = Application.Top;
+        var MainWin = Application.Top;
+        var Player = Application.Top;
+
+        var MainWindow = new Window("CSpoTUI")
+        {
+            X = 0,
+            Y = 0,
+            Width = Dim.Fill(),
+            Height = Dim.Fill()
+        };
+
+        var SearchWin = new Window("Search")
+        {
+            X = 0,
+            Y = 1,
+            Width = Dim.Percent(100),
+            Height = Dim.Percent(10)
+        };
+
+        var LibraryWin = new Window("Library")
+        {
+            X = 0,
+            Y = Pos.Bottom(SearchWin),
+            Width = Dim.Percent(20),
+            Height = Dim.Percent(30)
+        };
+        var PlaylistsWin = new Window("Playlists")
+        {
+            X = 0,
+            Y = Pos.Bottom(LibraryWin),
+            Width = Dim.Percent(20),
+            Height = Dim.Percent(30)
+        };
+        var MainWinWin = new Window("Main")
+        {
+            X = Pos.Right(LibraryWin),
+            Y = Pos.Bottom(SearchWin),
+            Width = Dim.Fill(),
+            Height = Dim.Percent(50)
+        };
+        var PlayerWin = new Window("Player")
+        {
+            X = 0,
+            Y = Pos.Bottom(PlaylistsWin),
+            Width = Dim.Percent(100),
+            Height = Dim.Percent(30)
+        };
+        
+
+        var ListTest = new ListView(new[] { "sak", "sak2" })
+        {
+            X = 0,
+            Y = 1,
+            Width = Dim.Fill(),
+            Height = Dim.Fill()
+
+        };
+      
+        var ProgressSong = new ProgressBar(){X = 1, Y = 1, Width = Dim.Fill(), Height = Dim.Percent(50)};
+
+
+
         var menu = new MenuBar(new MenuBarItem[] {
             new MenuBarItem ("_File", new MenuItem [] {
                 new MenuItem ("_Quit", "", () => {
@@ -12,57 +90,29 @@ class Demo
                 })
             }),
         });
-        
-                var playlist = new Window (new Rect (0, 1, 30, 4), "Playlist") {         //Cord system: x,y,lenght, height
-                   // X = 0,
-                   // Y = 1,
-                  //  Width = Dim.Fill (),
-                   // Height = Dim.Fill () - 1
-                };
-
-                var library = new Window (new Rect (0, 5, 30, 8), "Library");
-                var player = new Window (new Rect (0, 5, 30, 8), "Player");
+        PlayerWin.Add(ProgressSong);
+        PlaylistsWin.Add(ListTest);
+        MainWindow.Add(menu, SearchWin, LibraryWin, PlaylistsWin, MainWinWin, PlayerWin);
+        top.Add(MainWindow);
         
 
-        void SetupMyView (View myView)
-{
-    var label = new Label ("Username: ") {
-        X = 1,
-        Y = 1,
-        Width = 20,
-        Height = 1
-    };
-    myView.Add (label);
 
-    var username = new TextField ("") {
-        X = 1,
-        Y = 2,
-        Width = 30,
-        Height = 1
-    };
-    myView.Add (username);
-}
+        //var Progress = new ProgressBar ();
 
-        var playlist = new Label("playlist")
-        {
-            X = Pos.Percent(0),
-            Y = 1,
-            Width = Dim.Percent(50),
-            Height = Dim.Percent(30)
-        };
-        var library = new Label("Library")
-        {
-            
-            X = Pos.Percent(0),
-            Y = Pos.Percent(40),
-            Width = Dim.Percent(50),
-            Height = Dim.Percent(40)
-        };
-        
+        // Player.Add(Progress);
 
-        // Add both menu and win in a single call
-        Application.Top.Add(menu, playlist, library);
-        Application.Run();
+        // var search = new Label ("Search") {X = Pos.Percent(30), Y = 1};
+        // var searchText = new TextField ("Search"){X = 0, Y = Pos.Right(SearchWin), Width = Dim.Percent(100), Height = Dim.Percent(100)};
+
+        // Search.Add(searchText);
+        //  Search.ColorScheme = Colors.Dialog;
+        Application.Run(top);
+
+
     }
-    
-}*/
+
+
+
+
+
+}

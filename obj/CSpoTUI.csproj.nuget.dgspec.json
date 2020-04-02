@@ -36,6 +36,14 @@
       "frameworks": {
         "netcoreapp3.1": {
           "dependencies": {
+            "SpotifyAPI.Web": {
+              "target": "Package",
+              "version": "[5.1.0, )"
+            },
+            "SpotifyAPI.Web.Auth": {
+              "target": "Package",
+              "version": "[5.1.0, )"
+            },
             "Terminal.Gui": {
               "target": "Package",
               "version": "[0.70.0, )"
