@@ -1,6 +1,10 @@
-﻿using Terminal.Gui;
+﻿/*using Terminal.Gui;
 
-
+using System;
+using System.Threading.Tasks;
+using SpotifyAPI.Web.Auth;
+using SpotifyAPI.Web.Enums;
+using SpotifyAPI.Web.Models;
 
 
 
@@ -79,11 +83,12 @@ class CSpoTUI
 
         };
       
-        var ProgressSong = new ProgressBar(){X = 1, Y = 1, Width = Dim.Fill(), Height = Dim.Percent(50)};
+        var ProgressSong = new ProgressBar(){X = 1, Y = 0, Width = 5, Height = 2};
+
+        ProgressSong.Fraction = 5; // Example to show progressbBar
 
 
-
-        var menu = new MenuBar(new MenuBarItem[] {
+        var menu = new MenuBar(new MenuBarItem[] { //Creates menubar at top
             new MenuBarItem ("_File", new MenuItem [] {
                 new MenuItem ("_Quit", "", () => {
                     Application.RequestStop ();
@@ -115,4 +120,4 @@ class CSpoTUI
 
 
 
-}
+}*/

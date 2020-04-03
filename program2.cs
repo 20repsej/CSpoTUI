@@ -1,11 +1,18 @@
-/*using Terminal.Gui;
+using Terminal.Gui;
 
-
+using System;
+using System.Threading.Tasks;
+using SpotifyAPI.Web.Auth;
+using SpotifyAPI.Web.Enums;
+using SpotifyAPI.Web.Models;
 
 
 
 class CSpoTUI
 {
+
+
+
     string[] testText = new string[] { "Sak1", "Sak2", "Sak3", "Sak4" };
 
     static void Main()
@@ -15,7 +22,9 @@ class CSpoTUI
 
 
         Application.Init();
-        var Main = Application.Top;
+        var top = new Toplevel(){
+            X = 0, Y = 0, Width = Dim.Fill(), Height = Dim.Fill()
+        };
         var Search = Application.Top;
         var Library = Application.Current;
         var Playlists = Application.Top;
@@ -66,32 +75,35 @@ class CSpoTUI
             Width = Dim.Percent(100),
             Height = Dim.Percent(30)
         };
-        Search.Add(SearchWin);
-        Library.Add(LibraryWin);
-        Playlists.Add(PlaylistsWin);
-        MainWin.Add(MainWinWin);
-        Player.Add(PlayerWin);
+        
 
         var ListTest = new ListView(new[] { "sak", "sak2" })
         {
             X = 0,
-            Y = Pos.Bottom(LibraryWin),
-            Width = Dim.Percent(20),
-            Height = Dim.Percent(30)
+            Y = 1,
+            Width = Dim.Fill(),
+            Height = Dim.Fill()
 
         };
-        Playlists.Add(ListTest);
+      
+        var ProgressSong = new ProgressBar(){X = 1, Y = 0, Width = 5, Height = 2};
+
+        ProgressSong.Fraction = 5; // Example to show progressbBar
 
 
-
-        var menu = new MenuBar(new MenuBarItem[] {
+        var menu = new MenuBar(new MenuBarItem[] { //Creates menubar at top
             new MenuBarItem ("_File", new MenuItem [] {
                 new MenuItem ("_Quit", "", () => {
                     Application.RequestStop ();
                 })
             }),
         });
-        Main.Add(menu);
+        PlayerWin.Add(ProgressSong);
+        PlaylistsWin.Add(ListTest);
+        MainWindow.Add(menu, SearchWin, LibraryWin, PlaylistsWin, MainWinWin, PlayerWin);
+        top.Add(MainWindow);
+        
+
 
         //var Progress = new ProgressBar ();
 
@@ -102,7 +114,7 @@ class CSpoTUI
 
         // Search.Add(searchText);
         //  Search.ColorScheme = Colors.Dialog;
-        Application.Run();
+        Application.Run(top);
 
 
     }
@@ -111,4 +123,4 @@ class CSpoTUI
 
 
 
-}*/
+}
