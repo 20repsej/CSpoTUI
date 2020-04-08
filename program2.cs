@@ -10,7 +10,7 @@ using SpotifyAPI.Web.Models;
 class CSpoTUI
 {
 
-    private static string _clientId = "39b4c97ab78345f6a465eadad7d5c1ef"; //"";
+    private static string _clientId = ""; //"";
     private static string _secretId = ""; //"";
 
     string[] testText = new string[] { "Sak1", "Sak2", "Sak3", "Sak4" };
