@@ -1,7 +1,6 @@
-using Terminal.Gui;
-
+using Terminal.Gui; //Gui dont work at this moment
 using System;
-using System.Threading.Tasks;
+using System.Threading.Tasks; //Spotify destroyed my gui
 using SpotifyAPI.Web.Auth;
 using SpotifyAPI.Web.Enums;
 using SpotifyAPI.Web.Models;
@@ -11,19 +10,46 @@ using SpotifyAPI.Web.Models;
 class CSpoTUI
 {
 
-
+    private static string _clientId = "39b4c97ab78345f6a465eadad7d5c1ef"; //"";
+    private static string _secretId = "35f4a854686545c8abf0ffcc9aaf1dd1"; //"";
 
     string[] testText = new string[] { "Sak1", "Sak2", "Sak3", "Sak4" };
 
     static void Main()
     {
 
+        _clientId = string.IsNullOrEmpty(_clientId) ?
+          Environment.GetEnvironmentVariable("SPOTIFY_CLIENT_ID") :
+          _clientId;
+
+        _secretId = string.IsNullOrEmpty(_secretId) ?
+          Environment.GetEnvironmentVariable("SPOTIFY_SECRET_ID") :
+          _secretId;
+
+        //Console.WriteLine("####### Spotify API Example #######");
+        //Console.WriteLine("This example uses AuthorizationCodeAuth.");
+        //Console.WriteLine(
+        //   "Tip: If you want to supply your ClientID and SecretId beforehand, use env variables (SPOTIFY_CLIENT_ID and SPOTIFY_SECRET_ID)");
+
+        var auth =
+          new AuthorizationCodeAuth(_clientId, _secretId, "http://localhost:4002", "http://localhost:4002",
+            Scope.PlaylistReadPrivate | Scope.PlaylistReadCollaborative);
+        auth.AuthReceived += AuthOnAuthReceived;
+        auth.Start();
+        auth.OpenBrowser();
+
+        Console.ReadLine();
+        auth.Stop(0);
 
 
-
+        // The shit down here did work 
         Application.Init();
-        var top = new Toplevel(){
-            X = 0, Y = 0, Width = Dim.Fill(), Height = Dim.Fill()
+        var top = new Toplevel()
+        {
+            X = 0,
+            Y = 0,
+            Width = Dim.Fill(),
+            Height = Dim.Fill()
         };
         var Search = Application.Top;
         var Library = Application.Current;
@@ -75,9 +101,9 @@ class CSpoTUI
             Width = Dim.Percent(100),
             Height = Dim.Percent(30)
         };
-        
 
-        var ListTest = new ListView(new[] { "sak", "sak2" })
+       
+        var ListTest = new ListView(new string[] { "1", "2" })
         {
             X = 0,
             Y = 1,
@@ -85,8 +111,8 @@ class CSpoTUI
             Height = Dim.Fill()
 
         };
-      
-        var ProgressSong = new ProgressBar(){X = 1, Y = 0, Width = 5, Height = 2};
+
+        var ProgressSong = new ProgressBar() { X = 1, Y = 0, Width = 5, Height = 2 };
 
         ProgressSong.Fraction = 5; // Example to show progressbBar
 
@@ -102,7 +128,8 @@ class CSpoTUI
         PlaylistsWin.Add(ListTest);
         MainWindow.Add(menu, SearchWin, LibraryWin, PlaylistsWin, MainWinWin, PlayerWin);
         top.Add(MainWindow);
-        
+
+
 
 
         //var Progress = new ProgressBar ();
@@ -115,12 +142,57 @@ class CSpoTUI
         // Search.Add(searchText);
         //  Search.ColorScheme = Colors.Dialog;
         Application.Run(top);
+    }
+
+    
+
+    private static async void AuthOnAuthReceived(object sender, AuthorizationCode payload)
+    {
+        var auth = (AuthorizationCodeAuth)sender;
+        auth.Stop();
+
+        Token token = await auth.ExchangeCode(payload.Code);
+        var api = new SpotifyAPI.Web.SpotifyWebAPI
+        {
+            AccessToken = token.AccessToken,
+            TokenType = token.TokenType
+        };
+        
+        // await PrintUsefulData(api);
+    }
+
+    private static async Task PrintAllPlaylistTracks(SpotifyAPI.Web.SpotifyWebAPI api, Paging<SimplePlaylist> playlists)
+    {
+
+
+        if (playlists.Items == null) return;
+
+        playlists.Items.ForEach(playlist => Console.WriteLine($"- {playlist.Name}"));
+        if (playlists.HasNextPage())
+            await PrintAllPlaylistTracks(api, await api.GetNextPageAsync(playlists));
+
+        
 
 
     }
 
+    private static async Task PrintUsefulData(SpotifyAPI.Web.SpotifyWebAPI api)
+    {
+        PrivateProfile profile = await api.GetPrivateProfileAsync();
+        string name = string.IsNullOrEmpty(profile.DisplayName) ? profile.Id : profile.DisplayName;
+
+        await PrintAllPlaylistTracks(api, api.GetUserPlaylists(profile.Id));
+    }
+    public string MakePlaylistString(SpotifyAPI.Web.SpotifyWebAPI api, Paging<SimplePlaylist> playlists){
+        string lister = "sak, sak2, sak3,";
+        
+        if (playlists.Items == null) return lister;
+
+        playlists.Items.ForEach(playlist => Console.WriteLine($"- {playlist.Name}"));
 
 
 
-
+        
+        return lister;
+    }
 }
