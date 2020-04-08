@@ -11,7 +11,7 @@ class CSpoTUI
 {
 
     private static string _clientId = "39b4c97ab78345f6a465eadad7d5c1ef"; //"";
-    private static string _secretId = "35f4a854686545c8abf0ffcc9aaf1dd1"; //"";
+    private static string _secretId = ""; //"";
 
     string[] testText = new string[] { "Sak1", "Sak2", "Sak3", "Sak4" };
 
