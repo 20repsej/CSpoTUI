@@ -1,4 +1,4 @@
-/*using Terminal.Gui;
+using Terminal.Gui;
 using System;
 using System.Threading.Tasks;
 using SpotifyAPI.Web;
@@ -213,14 +213,7 @@ namespace CSpoTUI
 
             };
 
-            PlaylistsWin.Enter_Pressed += () => {
-			//When the Ctrlkey+B is 'pressed' the following is executed
-			if (label.Text != "abcdef") {
-				label.Text = "abcdef";
-			} else {
-				label.Text = "012";
-			}
-		};
+		
 
 
             var ok = new Button(3, 14, "Ok")
@@ -284,4 +277,4 @@ namespace CSpoTUI
 	}
 }
 
-}*/
+}
