@@ -24,11 +24,11 @@ namespace CSpoTUI
         private static List<string> MainWindowListID = new List<string>(); // List of ids of what currently is in main windows
         private static string deviceToPlayFrom = "";
 
+        public Terminal.Gui.Key Key;
 
 
-
-        private static string _clientId = ""; //"";
-        private static string _secretId = ""; //"";
+        private static string _clientId = "39b4c97ab78345f6a465eadad7d5c1ef"; //"";
+        private static string _secretId = "35f4a854686545c8abf0ffcc9aaf1dd1"; //"";
         private static SpotifyAPI.Web.SpotifyWebAPI _spotify;
         public static void Main(string[] args)
         {
@@ -79,7 +79,7 @@ namespace CSpoTUI
 
 
 
-        
+
         private static async Task PrintAllPlaylistTracks(SpotifyWebAPI api, Paging<SimplePlaylist> playlists)
         {
             if (playlists.Items == null) return;
@@ -157,20 +157,23 @@ namespace CSpoTUI
                 Height = Dim.Percent(10)
             };
 
-            var LibraryWin = new Window("Library")
+            var LibraryWin = new LibraryWindow()
             {
                 X = 0,
                 Y = Pos.Bottom(SearchWin),
                 Width = Dim.Percent(20),
                 Height = Dim.Percent(50)
             };
-            var PlaylistsWin = new Window("Playlists")
+            var PlaylistsWin = new PlaylistWindow()
             {
                 X = 0,
                 Y = Pos.Bottom(LibraryWin),
                 Width = Dim.Percent(20),
                 Height = Dim.Percent(50)
             };
+
+
+
             var MainWinWin = new Window("Main")
             {
                 X = Pos.Right(LibraryWin),
@@ -194,8 +197,9 @@ namespace CSpoTUI
                 Width = Dim.Fill(),
                 Height = Dim.Fill()
 
+
             };
-            
+
             var LibraryListWin = new ListView(LibraryList)
             {
                 X = 0,
@@ -213,8 +217,6 @@ namespace CSpoTUI
 
             };
 
-		
-
 
             var ok = new Button(3, 14, "Ok")
             {
@@ -230,14 +232,14 @@ namespace CSpoTUI
             DeviceListWin.SelectedChanged += () => current.Text = DeviceList[DeviceListWin.SelectedItem];
 
 
-            var ProgressSong = new ProgressBar() { X = 1, Y = 0, Width = 5, Height = 2 };
+            var ProgressSong = new ProgressBar() { X = 1, Y = 0, Width = 5, Height = 2 }; //Example progressbar
 
             ProgressSong.Fraction = 6; // Example to show progressbBar
 
 
             var menu = new MenuBar(new MenuBarItem[] { //Creates menubar at top
             new MenuBarItem ("_File", new MenuItem [] {
-                new MenuItem ("_Quit", "", () => {
+                new MenuItem ("_Quit", "", () => { 
                     Application.RequestStop ();
                 }),
                 new MenuItem ("_Device", "", () => {
@@ -247,6 +249,28 @@ namespace CSpoTUI
             }),
 
         });
+
+        // Keypresses
+
+        PlaylistsWin.Enter_Pressed += () => {
+			// When Enter is pressed this code runs
+
+           // int pos = PlaylistsList.Find(Convert.ToString( PlaylistListWin.SelectedItem));
+            PlaylistListWin.ColorScheme = Colors.Error;
+
+
+        };
+        LibraryWin.Enter_Pressed += () => {
+			// When Enter is pressed this code runs
+
+           // int pos = PlaylistsList.Find(Convert.ToString( PlaylistListWin.SelectedItem));
+            LibraryListWin.ColorScheme = Colors.Error;
+
+
+        };
+
+
+
             DeviceDialog.Add(DeviceListWin, current);
             PlayerWin.Add(ProgressSong);
             LibraryWin.Add(LibraryListWin);
@@ -259,22 +283,65 @@ namespace CSpoTUI
 
     }
 
-    class PlaylistsWin : Window {
-	public Action Enter_Pressed;
+    class PlaylistWindow : Window
+    {
+        public Action Enter_Pressed;
 
-	public PlaylistsWin () : base ("Key event")
-	{
-	}
-	public override bool ProcessKey (KeyEvent keyEvent)
-	{
-		if (keyEvent.Key == Key.Enter) {
-			if (Enter_Pressed != null) {
-				Enter_Pressed.Invoke ();
-				return true;
-			}
-		}
-		return base.ProcessKey (keyEvent);
-	}
-}
+        public PlaylistWindow() : base ("Playlists")
+        {
+        }
+        public override bool ProcessKey(KeyEvent keyEvent)
+        {
+            if (keyEvent.Key == Key.Enter)
+            {
+                if (Enter_Pressed != null)
+                {
+                    Enter_Pressed.Invoke();
+                    return true;
+                }
+            }
+            return base.ProcessKey(keyEvent);
+        }
+    }
+    class LibraryWindow : Window
+    {
+        public Action Enter_Pressed;
+
+        public LibraryWindow() : base ("Library")
+        {
+        }
+        public override bool ProcessKey(KeyEvent keyEvent)
+        {
+            if (keyEvent.Key == Key.Enter)
+            {
+                if (Enter_Pressed != null)
+                {
+                    Enter_Pressed.Invoke();
+                    return true;
+                }
+            }
+            return base.ProcessKey(keyEvent);
+        }
+    }
+    class SearchWindow : Window
+    {
+        public Action Enter_Pressed;
+
+        public SearchWindow() : base ("Search")
+        {
+        }
+        public override bool ProcessKey(KeyEvent keyEvent)
+        {
+            if (keyEvent.Key == Key.Enter)
+            {
+                if (Enter_Pressed != null)
+                {
+                    Enter_Pressed.Invoke();
+                    return true;
+                }
+            }
+            return base.ProcessKey(keyEvent);
+        }
+    }
 
 }
