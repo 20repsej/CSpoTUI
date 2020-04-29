@@ -10,10 +10,18 @@ using System.Collections.Generic;
 //public List<string> colors = new List<string>();
 namespace CSpoTUI
 {
-
+    /// <summary>
+    /// The class containing the Main function that runs the program
+    /// Connects to spotify with SpotifyAPI and authenticates with <c>_clientId</c> and <c>_secretId</c>
+    /// Starts the GUI with <c>GuiMain()</c>
+    /// </summary>
     class MainLoop
     {
 
+        /// <summary>
+        /// Lists that is accesible everywhere
+        /// Containing data from spotify API
+        /// </summary>
         private static List<string> PlaylistsList = new List<string>(); //List of the users playlist names
         private static List<string> PlaylistsListID = new List<string>(); //List of the users playlist ids
         private static List<string> LibraryList = new List<string>(); //List of libraryplaylist names
@@ -43,8 +51,8 @@ namespace CSpoTUI
             var auth =
               new AuthorizationCodeAuth(_clientId, _secretId, "http://localhost:4002", "http://localhost:4002",
                 Scope.PlaylistReadPrivate | Scope.PlaylistReadCollaborative | Scope.AppRemoteControl | Scope.UserReadPrivate
-                 | Scope.UserTopRead | Scope.PlaylistModifyPublic | Scope.UserReadPlaybackState | Scope.UserLibraryRead | Scope.UserReadRecentlyPlayed | Scope.Streaming | Scope.UserReadCurrentlyPlaying
-                 | Scope.UserFollowRead);
+                 | Scope.UserTopRead | Scope.PlaylistModifyPublic | Scope.UserReadPlaybackState | Scope.UserLibraryRead |
+                  Scope.UserReadRecentlyPlayed | Scope.Streaming | Scope.UserReadCurrentlyPlaying | Scope.UserFollowRead);
 
             auth.AuthReceived += async (sender, payload) =>
         {
@@ -59,11 +67,15 @@ namespace CSpoTUI
             await PrintUsefulData(api);
 
         };
-            auth.Start(); // Starts an internal HTTP Server
-            auth.OpenBrowser();
+            
+            auth.Start();
+            System.Console.WriteLine("Maybe wait a little");
+            System.Console.WriteLine("");
+            System.Console.WriteLine("Press any key to continue...");
+            auth.OpenBrowser(); // Starts an internal HTTP Server
 
             Console.ReadLine();
-            //  auth.Stop(0);
+
             System.Console.WriteLine(PlaylistsList.Count);
             System.Console.WriteLine(DeviceList.Count);
             System.Console.WriteLine(LibraryList.Count);
@@ -239,7 +251,7 @@ namespace CSpoTUI
 
             var menu = new MenuBar(new MenuBarItem[] { //Creates menubar at top
             new MenuBarItem ("_File", new MenuItem [] {
-                new MenuItem ("_Quit", "", () => { 
+                new MenuItem ("_Quit", "", () => {
                     Application.RequestStop ();
                 }),
                 new MenuItem ("_Device", "", () => {
@@ -250,27 +262,32 @@ namespace CSpoTUI
 
         });
 
-        // Keypresses
+            // Keypresses
 
-        PlaylistsWin.Enter_Pressed += () => {
-			// When Enter is pressed this code runs
+            PlaylistsWin.Enter_Pressed += () =>
+            {
+                // When Enter is pressed this code runs
 
-           // int pos = PlaylistsList.Find(Convert.ToString( PlaylistListWin.SelectedItem));
-            PlaylistListWin.ColorScheme = Colors.Error;
-
-
-        };
-        LibraryWin.Enter_Pressed += () => {
-			// When Enter is pressed this code runs
-
-           // int pos = PlaylistsList.Find(Convert.ToString( PlaylistListWin.SelectedItem));
-            LibraryListWin.ColorScheme = Colors.Error;
+                // int pos = PlaylistsList.Find(Convert.ToString( PlaylistListWin.SelectedItem));
+                PlaylistListWin.ColorScheme = Colors.Error;
 
 
-        };
+            };
+            LibraryWin.Enter_Pressed += () =>
+            {
+                // When Enter is pressed this code runs
+
+                // int pos = PlaylistsList.Find(Convert.ToString( PlaylistListWin.SelectedItem));
+                LibraryListWin.ColorScheme = Colors.Error;
 
 
+            };
 
+
+            /// <summary>
+            /// Adds all the functions to the right place and window
+            /// Also adds the windows to the main window
+            /// </summary>
             DeviceDialog.Add(DeviceListWin, current);
             PlayerWin.Add(ProgressSong);
             LibraryWin.Add(LibraryListWin);
@@ -278,16 +295,19 @@ namespace CSpoTUI
             MainWindow.Add(menu, SearchWin, LibraryWin, PlaylistsWin, MainWinWin, PlayerWin);
             top.Add(MainWindow);
 
-            Application.Run(top);
+            Application.Run(top); // Starts the TUI
         }
 
     }
 
+    /// <summary>
+    /// Takes the key <c>Key.Enter</c> as input for the playlist window
+    /// </summary>
     class PlaylistWindow : Window
     {
         public Action Enter_Pressed;
 
-        public PlaylistWindow() : base ("Playlists")
+        public PlaylistWindow() : base("Playlists")
         {
         }
         public override bool ProcessKey(KeyEvent keyEvent)
@@ -303,11 +323,15 @@ namespace CSpoTUI
             return base.ProcessKey(keyEvent);
         }
     }
+
+    /// <summary>
+    /// Takes the key <c>Key.Enter</c> as input for the library window
+    /// </summary>
     class LibraryWindow : Window
     {
         public Action Enter_Pressed;
 
-        public LibraryWindow() : base ("Library")
+        public LibraryWindow() : base("Library")
         {
         }
         public override bool ProcessKey(KeyEvent keyEvent)
@@ -323,11 +347,15 @@ namespace CSpoTUI
             return base.ProcessKey(keyEvent);
         }
     }
+
+    /// <summary>
+    /// Takes the key <c>Key.Enter</c> as input for the search window
+    /// </summary>
     class SearchWindow : Window
     {
         public Action Enter_Pressed;
 
-        public SearchWindow() : base ("Search")
+        public SearchWindow() : base("Search")
         {
         }
         public override bool ProcessKey(KeyEvent keyEvent)
