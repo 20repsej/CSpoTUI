@@ -1,4 +1,4 @@
-using Terminal.Gui;
+/*using Terminal.Gui;
 using System;
 using System.Threading.Tasks;
 using SpotifyAPI.Web;
@@ -65,6 +65,7 @@ namespace CSpoTUI
             };
 
             await PrintUsefulData(api);
+            
 
         };
             
@@ -279,6 +280,8 @@ namespace CSpoTUI
 
                 // int pos = PlaylistsList.Find(Convert.ToString( PlaylistListWin.SelectedItem));
                 LibraryListWin.ColorScheme = Colors.Error;
+              //  ErrorResponse error = _spotify.SetRepeatMode(RepeatState.Track);
+
 
 
             };
@@ -372,4 +375,4 @@ namespace CSpoTUI
         }
     }
 
-}
+}*/
