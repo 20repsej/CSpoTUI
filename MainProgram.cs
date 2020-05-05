@@ -1,4 +1,4 @@
-/*using Terminal.Gui;
+using Terminal.Gui;
 using System;
 using System.Threading.Tasks;
 using SpotifyAPI.Web;
@@ -375,4 +375,4 @@ namespace CSpoTUI
         }
     }
 
-}*/
+}
