@@ -35,8 +35,8 @@ namespace CSpoTUI
         public Terminal.Gui.Key Key;
 
 
-        private static string _clientId = "39b4c97ab78345f6a465eadad7d5c1ef"; //"";
-        private static string _secretId = "35f4a854686545c8abf0ffcc9aaf1dd1"; //"";
+        private static string _clientId = ""; //"";
+        private static string _secretId = ""; //"";
         private static SpotifyAPI.Web.SpotifyWebAPI _spotify;
         public static void Main(string[] args)
         {
