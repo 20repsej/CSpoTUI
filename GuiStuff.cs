@@ -1,8 +1,8 @@
 
-using Terminal.Gui;
+using Terminal.Gui; // Gui.cs
 using System;
 using System.Threading.Tasks;
-using SpotifyAPI.Web;
+using SpotifyAPI.Web; // SpotifyAPI-NET
 using SpotifyAPI.Web.Auth;
 using SpotifyAPI.Web.Enums;
 using SpotifyAPI.Web.Models;
@@ -12,16 +12,16 @@ using Unosquare.Swan;
 using System.Diagnostics;
 
 
-//public List<string> colors = new List<string>();
+
 namespace CSpoTUI
 {
-    
+
     /// <summary>
     /// The class containing the Main function that runs the program
     /// Connects to spotify with SpotifyAPI and authenticates with <c>_clientId</c> and <c>_secretId</c>
     /// Starts the GUI with <c>GuiMain()</c>
     /// </summary>
-    class MainLoop
+    class MainLoop // I dont like this
     {
 
         /// <summary>
@@ -29,15 +29,15 @@ namespace CSpoTUI
         /// Containing data from spotify API
         /// </summary>
 
-         //List of the users playlist names
-        private static List<string> PlaylistsList = new List<string>();
-        private static List<string> PlaylistsListID = new List<string>(); //List of the users playlist ids
+        //List of things to display
+        private static List<string> PlaylistsList = new List<string>(); // List of the users playlist names
+        private static List<string> PlaylistsListID = new List<string>(); //List of the users playlist IDs
         private static List<string> LibraryList = new List<string>(); //List of libraryplaylist names
-        private static List<string> LibraryListID = new List<string>(); //List of libraryplaylist ids
+        private static List<string> LibraryListID = new List<string>(); //List of libraryplaylist IDs
         private static List<string> DeviceList = new List<string>(); //List of device names
-        private static List<string> DeviceListID = new List<string>(); //List of device ids
+        private static List<string> DeviceListID = new List<string>(); //List of device IDs
         private static List<string> MainWindowList = new List<string>(); //List of what currently is in main windows
-        private static List<string> MainWindowListID = new List<string>();
+        private static List<string> MainWindowListID = new List<string>(); // List of IDs of whats currently is in the main window
 
         private static float progress = 0.0f;
         private static float totalTime = 0.0f;
@@ -97,7 +97,7 @@ namespace CSpoTUI
             System.Console.WriteLine(LibraryList.Count);
             System.Console.WriteLine("Done initiating");
 
-            GuiMain();
+            GuiMain(); // Starts the GUI
 
 
 
@@ -152,9 +152,9 @@ namespace CSpoTUI
             PrintFeaturedPlaylists(api);
 
         }
-    
-        
-    
+
+
+
         static void GuiMain()
         {
 
@@ -167,12 +167,12 @@ namespace CSpoTUI
                 Height = Dim.Fill()
             };
             var Search = Application.Top;
-            var Library = Application.Current;
+            var Library = Application.Top;
             var Playlists = Application.Top;
             var MainWin = Application.Top;
             var Player = Application.Top;
 
-            var MainWindow = new Window("CSpoTUI")
+            var MainWindow = new Window("CSpoTUI") //The window containing all other windows
             {
                 X = 0,
                 Y = 0,
@@ -180,7 +180,10 @@ namespace CSpoTUI
                 Height = Dim.Fill()
             };
 
-            var SearchWin = new SearchWindow()
+            
+
+
+            var SearchWin = new SearchWindow() // Window containing searchbar
             {
                 X = 0,
                 Y = 1,
@@ -188,40 +191,49 @@ namespace CSpoTUI
                 Height = Dim.Percent(10)
             };
 
-            var SearchText = new TextField(""){
+            var SearchText = new TextField("") // Searchbar
+            {
                 Width = Dim.Fill(),
                 Height = Dim.Fill()
             };
 
-            var LibraryWin = new LibraryWindow()
+            var LibrPlayMainWin = new Window(null, 0) // Window containing Library, Playlists and Main window
             {
                 X = 0,
                 Y = Pos.Bottom(SearchWin),
+                Width = Dim.Fill(),
+                Height = Dim.Percent(90)
+            };
+
+            var LibraryWin = new LibraryWindow() // Window containing Library
+            {
+                X = 0,
+                Y = 0,
                 Width = Dim.Percent(20),
                 Height = Dim.Percent(50)
             };
-            var PlaylistsWin = new PlaylistWindow()
+            var PlaylistsWin = new PlaylistWindow() // Window containing Playlists
             {
                 X = 0,
                 Y = Pos.Bottom(LibraryWin),
                 Width = Dim.Percent(20),
-                Height = Dim.Percent(50)
+                Height = Dim.Fill()
             };
 
 
 
-            var MainWinWin = new MainWindowKey()
+            var MainWinWin = new MainWindowKey() // Main window that display different things
             {
                 X = Pos.Right(LibraryWin),
-                Y = Pos.Bottom(SearchWin),
+                Y = 0,
                 Width = Dim.Fill(),
-                Height = Dim.Percent(80)
+                Height = Dim.Fill()
             };
-            var PlayerWin = new Window("Player")
+            var PlayerWin = new Window("Player") // Playerwindow containing progressbar for track Need to fix
             {
                 X = 0,
-                Y = Pos.Bottom(PlaylistsWin),
-                Width = Dim.Percent(100),
+                Y = Pos.Bottom(LibrPlayMainWin),
+                Width = Dim.Fill(),
                 Height = Dim.Fill()
             };
 
@@ -257,7 +269,7 @@ namespace CSpoTUI
 
             };
 
-            var ok = new Button(3, 14, "Ok")
+            var ok = new Button(3, 14, "Ok") // Button for device selecting
             {
                 Clicked = () => { Application.RequestStop(); deviceToPlayFrom = DeviceList[DeviceListWin.SelectedItem]; }
             };
@@ -271,7 +283,7 @@ namespace CSpoTUI
             DeviceListWin.SelectedChanged += () => current.Text = DeviceList[DeviceListWin.SelectedItem];
 
 
-            var ProgressSong = new ProgressBar() { X = 1, Y = 0, Width = Dim.Fill(), Height = Dim.Fill() }; //Example progressbar
+            var ProgressSong = new ProgressBar() { X = 1, Y = 0, Width = Dim.Fill(), Height = Dim.Fill() }; // Progressbar for playing track
 
 
 
@@ -292,7 +304,7 @@ namespace CSpoTUI
 
             // Keypresses
 
-            PlaylistsWin.Enter_Pressed += () =>
+            PlaylistsWin.Enter_Pressed += () => // Starts when enter is pressed in playlistwindow
             {
                 MainWindowList.Clear();
                 MainWindowListID.Clear();
@@ -314,7 +326,7 @@ namespace CSpoTUI
 
 
 
-            LibraryWin.Enter_Pressed += () =>
+            LibraryWin.Enter_Pressed += () => // Starts when enter is pressed in librarywindow
             {
                 MainWindowList.Clear();
                 MainWindowListID.Clear();
@@ -337,7 +349,7 @@ namespace CSpoTUI
 
 
             };
-            MainWinWin.Enter_Pressed += () =>
+            MainWinWin.Enter_Pressed += () => // Starts when enter is pressed in mainwindow
             {
                 PrivateProfile profile = api.GetPrivateProfile();
 
@@ -353,21 +365,22 @@ namespace CSpoTUI
                     positionMs: 0,
                     offset: 0
                 );
-                
+
             };
             SearchWin.Enter_Pressed += () =>
             {
                 MainWindowList.Clear();
                 MainWindowListID.Clear();
                 int sak = MainListWin.SelectedItem;
-                 Paging<FullTrack> item = api.SearchItems(SearchText.Text.ToString(), SearchType.Track).Tracks ;
+                Paging<FullTrack> item = api.SearchItems(SearchText.Text.ToString(), SearchType.Track).Tracks;
                 item.Items.ForEach(track => MainWindowList.Add(track.Name));
                 item.Items.ForEach(track => MainWindowListID.Add(track.Id));
 
                 MainWinWin.SetNeedsDisplay();
             };
 
-            Application.MainLoop.AddTimeout(TimeSpan.FromMilliseconds(1000), x => { 
+            Application.MainLoop.AddTimeout(TimeSpan.FromMilliseconds(1000), x =>
+            {
                 PlaybackContext context = api.GetPlayback();
                 if (context.Item != null)
                 {
@@ -375,14 +388,14 @@ namespace CSpoTUI
                     whatTime = context.ProgressMs;
                 }
 
-                progress = whatTime/totalTime;
+                progress = whatTime / totalTime;
                 ProgressSong.Fraction = progress;
 
-               // System.Console.WriteLine(context.ProgressMs);
+                // System.Console.WriteLine(context.ProgressMs);
                 return true;
-                           
+
             });
-            
+
 
 
 
@@ -396,9 +409,10 @@ namespace CSpoTUI
             MainWinWin.Add(MainListWin);
             LibraryWin.Add(LibraryListWin);
             PlaylistsWin.Add(PlaylistListWin);
-            MainWindow.Add(menu, SearchWin, LibraryWin, PlaylistsWin, MainWinWin, PlayerWin);
+            LibrPlayMainWin.Add(LibraryWin, PlaylistsWin, MainWinWin);
+            MainWindow.Add(menu, SearchWin, LibrPlayMainWin, PlayerWin);
             top.Add(MainWindow);
-            
+
             Application.Run(top); // Starts the GUI
         }
 
