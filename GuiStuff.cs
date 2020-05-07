@@ -1,3 +1,4 @@
+
 using Terminal.Gui;
 using System;
 using System.Threading.Tasks;
@@ -14,6 +15,7 @@ using System.Diagnostics;
 //public List<string> colors = new List<string>();
 namespace CSpoTUI
 {
+    
     /// <summary>
     /// The class containing the Main function that runs the program
     /// Connects to spotify with SpotifyAPI and authenticates with <c>_clientId</c> and <c>_secretId</c>
@@ -27,7 +29,8 @@ namespace CSpoTUI
         /// Containing data from spotify API
         /// </summary>
 
-        private static List<string> PlaylistsList = new List<string>(); //List of the users playlist names
+         //List of the users playlist names
+        private static List<string> PlaylistsList = new List<string>();
         private static List<string> PlaylistsListID = new List<string>(); //List of the users playlist ids
         private static List<string> LibraryList = new List<string>(); //List of libraryplaylist names
         private static List<string> LibraryListID = new List<string>(); //List of libraryplaylist ids
@@ -149,8 +152,9 @@ namespace CSpoTUI
             PrintFeaturedPlaylists(api);
 
         }
-
-
+    
+        
+    
         static void GuiMain()
         {
 
@@ -365,12 +369,16 @@ namespace CSpoTUI
 
             Application.MainLoop.AddTimeout(TimeSpan.FromMilliseconds(1000), x => { 
                 PlaybackContext context = api.GetPlayback();
-                totalTime = context.Item.DurationMs;
-                whatTime = context.ProgressMs;
+                if (context.Item != null)
+                {
+                    totalTime = context.Item.DurationMs;
+                    whatTime = context.ProgressMs;
+                }
+
                 progress = whatTime/totalTime;
                 ProgressSong.Fraction = progress;
 
-                System.Console.WriteLine(context.ProgressMs);
+               // System.Console.WriteLine(context.ProgressMs);
                 return true;
                            
             });
@@ -390,7 +398,7 @@ namespace CSpoTUI
             PlaylistsWin.Add(PlaylistListWin);
             MainWindow.Add(menu, SearchWin, LibraryWin, PlaylistsWin, MainWinWin, PlayerWin);
             top.Add(MainWindow);
-
+            
             Application.Run(top); // Starts the GUI
         }
 
