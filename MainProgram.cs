@@ -1,4 +1,4 @@
-using Terminal.Gui;
+/*using Terminal.Gui;
 using System;
 using System.Threading.Tasks;
 using SpotifyAPI.Web;
@@ -6,6 +6,9 @@ using SpotifyAPI.Web.Auth;
 using SpotifyAPI.Web.Enums;
 using SpotifyAPI.Web.Models;
 using System.Collections.Generic;
+using System.Reflection.Metadata.Ecma335;
+using Unosquare.Swan;
+using System.Diagnostics;
 
 //public List<string> colors = new List<string>();
 namespace CSpoTUI
@@ -34,10 +37,10 @@ namespace CSpoTUI
 
         public Terminal.Gui.Key Key;
 
-
-        private static string _clientId = ""; //"";
-        private static string _secretId = ""; //"";
+        private static string _clientId = "39b4c97ab78345f6a465eadad7d5c1ef"; //"";
+        private static string _secretId = "35f4a854686545c8abf0ffcc9aaf1dd1"; //"";
         private static SpotifyAPI.Web.SpotifyWebAPI _spotify;
+        static SpotifyAPI.Web.SpotifyWebAPI api;
         public static void Main(string[] args)
         {
             _clientId = string.IsNullOrEmpty(_clientId) ?
@@ -65,10 +68,10 @@ namespace CSpoTUI
             };
 
             await PrintUsefulData(api);
-            
+
 
         };
-            
+
             auth.Start();
             System.Console.WriteLine("Maybe wait a little");
             System.Console.WriteLine("");
@@ -229,6 +232,14 @@ namespace CSpoTUI
                 Height = Dim.Fill()
 
             };
+            var MainListWin = new ListView(MainWindowList)
+            {
+                X = 0,
+                Y = 1,
+                Width = Dim.Fill(),
+                Height = Dim.Fill()
+
+            };
 
 
             var ok = new Button(3, 14, "Ok")
@@ -267,21 +278,31 @@ namespace CSpoTUI
 
             PlaylistsWin.Enter_Pressed += () =>
             {
-                // When Enter is pressed this code runs
 
+                api = new SpotifyAPI.Web.SpotifyWebAPI();
+
+               // Paging<SimplePlaylist> userPlaylists = api.GetUserPlaylists("1122095781");
+               // userPlaylists.Items.ForEach(playlist => playlist.Owner.DisplayName); //Who is the owner of the playli;
+                // When Enter is pressed this code runs
+                System.Console.WriteLine(api.G);
                 // int pos = PlaylistsList.Find(Convert.ToString( PlaylistListWin.SelectedItem));
-                PlaylistListWin.ColorScheme = Colors.Error;
+                
 
 
             };
             LibraryWin.Enter_Pressed += () =>
             {
+                api = new SpotifyAPI.Web.SpotifyWebAPI();
+                
                 // When Enter is pressed this code runs
+                FeaturedPlaylists playlists = api.GetFeaturedPlaylists();
+                
 
-                // int pos = PlaylistsList.Find(Convert.ToString( PlaylistListWin.SelectedItem));
+                PlaylistsList.FindIndex(s => s == PlaylistListWin.SelectedItem.ToString());
                 LibraryListWin.ColorScheme = Colors.Error;
-              //  ErrorResponse error = _spotify.SetRepeatMode(RepeatState.Track);
-
+                
+               // FullPlaylist playlist = api.GetPlaylist(api, PlaylistsListID[2]);
+               // playlist.Tracks.Items.ForEach(track => Console.WriteLine(track.Track.Name));
 
 
             };
@@ -291,6 +312,7 @@ namespace CSpoTUI
             /// Adds all the functions to the right place and window
             /// Also adds the windows to the main window
             /// </summary>
+            MainWin.Add(MainListWin);
             DeviceDialog.Add(DeviceListWin, current);
             PlayerWin.Add(ProgressSong);
             LibraryWin.Add(LibraryListWin);
@@ -375,4 +397,4 @@ namespace CSpoTUI
         }
     }
 
-}
+}*/

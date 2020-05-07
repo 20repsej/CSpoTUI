@@ -1,31 +1,38 @@
-/*using BarRaider.SdTools;
-using dotenv.net;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using SpotifyAPI.Web;
-using SpotifyAPI.Web.Auth;
-using SpotifyAPI.Web.Enums;
-using SpotifyAPI.Web.Models;
+/*using Terminal.Gui;
 using System;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
-
-namespace myNamespace
+class Demo
 {
+    private static float test = 0.0f;
 
-    public class mainClass{
+    static void Main()
+    {
+        Application.Init();
+        var top = Application.Top;
 
-        private string clientID;
-        private string clientSecret;
-        private AuthorizationCodeAuth auth;
-        private SpotifyWebAPI api;
-        String songId = String.Empty;
-        Boolean browserOpen = false;
+        
+        var win = new Window("Window")
+        {
+            X = 0,
+            Y = 1,
+            Width = Dim.Fill(),
+            Height = Dim.Fill()
+        };
 
-    }
 
+        var ProgressSong = new ProgressBar() { X = 1, Y = 0, Width = Dim.Fill(), Height = Dim.Fill() }; 
+        
 
-
+        Application.MainLoop.AddTimeout(TimeSpan.FromMilliseconds(1000), x => { 
+                
+                ProgressSong.Fraction = test;
+ 
+                test += 0.001f;
+               // ProgressSong.Pulse();
+              //  ProgressSong.SetNeedsDisplay();
+                return true;                        
+            });
+        win.Add(ProgressSong);
+        top.Add(win);
+        Application.Run();
+    }  
 }*/
