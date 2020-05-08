@@ -7,9 +7,9 @@ using SpotifyAPI.Web.Auth;
 using SpotifyAPI.Web.Enums;
 using SpotifyAPI.Web.Models;
 using System.Collections.Generic;
-using System.Reflection.Metadata.Ecma335;
-using Unosquare.Swan;
-using System.Diagnostics;
+using System.Reflection.Metadata.Ecma335; // Dont know
+using Unosquare.Swan; // Dont know
+using System.Diagnostics; // Dont know
 
 
 
@@ -229,7 +229,7 @@ namespace CSpoTUI
                 Width = Dim.Fill(),
                 Height = Dim.Fill()
             };
-            var PlayerWin = new Window("Player") // Playerwindow containing progressbar for track Need to fix
+            var PlayerWin = new PlayerKey() // Playerwindow containing progressbar for track Need to fix
             {
                 X = 0,
                 Y = Pos.Bottom(LibrPlayMainWin),
@@ -379,6 +379,17 @@ namespace CSpoTUI
                 MainWinWin.SetNeedsDisplay();
             };
 
+            PlayerWin.Enter_Pressed += () =>
+            {
+                PlaybackContext context = api.GetPlayback();
+
+                if(context.Item != null)
+                {
+                    api.PausePlayback();
+                }
+               
+            };
+
             Application.MainLoop.AddTimeout(TimeSpan.FromMilliseconds(1000), x =>
             {
                 PlaybackContext context = api.GetPlayback();
@@ -470,6 +481,27 @@ namespace CSpoTUI
         public Action Enter_Pressed;
 
         public MainWindowKey() : base("CSpoTUI")
+        {
+        }
+        public override bool ProcessKey(KeyEvent keyEvent)
+        {
+            if (keyEvent.Key == Key.Enter)
+            {
+                if (Enter_Pressed != null)
+                {
+                    Enter_Pressed.Invoke();
+                    return true;
+                }
+            }
+            return base.ProcessKey(keyEvent);
+        }
+    }
+
+    class PlayerKey : Window
+    {
+        public Action Enter_Pressed;
+
+        public PlayerKey() : base("Player")
         {
         }
         public override bool ProcessKey(KeyEvent keyEvent)
