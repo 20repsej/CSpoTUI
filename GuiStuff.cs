@@ -46,6 +46,8 @@ namespace CSpoTUI
 
         // List of ids of what currently is in main windows;
         private static string deviceToPlayFrom = "";
+        private static string TrackInfoString = "Notning playing";
+
 
         public Terminal.Gui.Key Key;
 
@@ -157,8 +159,16 @@ namespace CSpoTUI
 
         static void GuiMain()
         {
-
             Application.Init();
+
+
+            Colors.Base.Focus = Terminal.Gui.Attribute.Make(Color.Cyan, Color.DarkGray);
+            Colors.Base.Normal = Terminal.Gui.Attribute.Make(Color.Cyan, Color.DarkGray);
+            Colors.Base.HotFocus = Terminal.Gui.Attribute.Make(Color.BrightBlue, Color.Brown);
+            Colors.Base.HotNormal = Terminal.Gui.Attribute.Make(Color.Red, Color.BrightRed);
+
+
+
             var top = new Toplevel()
             {
                 X = 0,
@@ -172,7 +182,7 @@ namespace CSpoTUI
             var MainWin = Application.Top;
             var Player = Application.Top;
 
-            var MainWindow = new Window("CSpoTUI") //The window containing all other windows
+            var MainWindow = new MostMainMainWindowKey() //The window containing all other windows
             {
                 X = 0,
                 Y = 0,
@@ -180,7 +190,7 @@ namespace CSpoTUI
                 Height = Dim.Fill()
             };
 
-            
+
 
 
             var SearchWin = new SearchWindow() // Window containing searchbar
@@ -285,6 +295,15 @@ namespace CSpoTUI
 
             var ProgressSong = new ProgressBar() { X = 1, Y = 0, Width = Dim.Fill(), Height = Dim.Fill() }; // Progressbar for playing track
 
+            var TrackInfo = new TextView()
+            {
+                X = 1,
+                Y = 1,
+                Text = TrackInfoString,
+                ReadOnly = true,
+                Width = Dim.Fill(),
+                Height = 1
+            };
 
 
 
@@ -356,8 +375,8 @@ namespace CSpoTUI
                 string name = string.IsNullOrEmpty(profile.DisplayName) ? profile.Id : profile.DisplayName;
                 // When Enter is pressed this code runs
                 //  int pos = PlaylistsList.FindIndex(s => s == PlaylistListWin.SelectedItem.ToString());
-                int sak = MainListWin.SelectedItem;
-                string song = "spotify:track:" + MainWindowListID[sak];
+                int selectedItemInMain = MainListWin.SelectedItem;
+                string song = "spotify:track:" + MainWindowListID[selectedItemInMain];
 
                 //api.ResumePlayback(deviceId: "", contextUri: "spotify:track:" + MainWindowListID[sak], uris: null, "", 0);
                 api.ResumePlayback(
@@ -383,11 +402,11 @@ namespace CSpoTUI
             {
                 PlaybackContext context = api.GetPlayback();
 
-                if(context.Item != null)
+                if (context.Item != null)
                 {
                     api.PausePlayback();
                 }
-               
+
             };
 
             Application.MainLoop.AddTimeout(TimeSpan.FromMilliseconds(1000), x =>
@@ -397,6 +416,10 @@ namespace CSpoTUI
                 {
                     totalTime = context.Item.DurationMs;
                     whatTime = context.ProgressMs;
+
+                    TrackInfoString = context.Item.Name + " - " + context.Item.Artists[0];
+                    TrackInfo.Text = TrackInfoString;
+                    TrackInfo.SetNeedsDisplay();
                 }
 
                 progress = whatTime / totalTime;
@@ -416,7 +439,7 @@ namespace CSpoTUI
             /// </summary>
             SearchWin.Add(SearchText);
             DeviceDialog.Add(DeviceListWin, current);
-            PlayerWin.Add(ProgressSong);
+            PlayerWin.Add(ProgressSong, TrackInfo);
             MainWinWin.Add(MainListWin);
             LibraryWin.Add(LibraryListWin);
             PlaylistsWin.Add(PlaylistListWin);
@@ -511,6 +534,27 @@ namespace CSpoTUI
                 if (Enter_Pressed != null)
                 {
                     Enter_Pressed.Invoke();
+                    return true;
+                }
+            }
+            return base.ProcessKey(keyEvent);
+        }
+    }
+
+    class MostMainMainWindowKey : Window
+    {
+        public Action Space_Pressed;
+
+        public MostMainMainWindowKey() : base("CSpoTUI")
+        {
+        }
+        public override bool ProcessKey(KeyEvent keyEvent)
+        {
+            if (keyEvent.Key == Key.Space)
+            {
+                if (Space_Pressed != null)
+                {
+                    Space_Pressed.Invoke();
                     return true;
                 }
             }
