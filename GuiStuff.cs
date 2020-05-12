@@ -54,7 +54,6 @@ namespace CSpoTUI
         static SpotifyAPI.Web.SpotifyWebAPI api;
         private static string _clientId = "39b4c97ab78345f6a465eadad7d5c1ef"; //"";
         private static string _secretId = "35f4a854686545c8abf0ffcc9aaf1dd1"; //"";
-        private static SpotifyAPI.Web.SpotifyWebAPI _spotify;
         public static void Main(string[] args)
         {
             _clientId = string.IsNullOrEmpty(_clientId) ?
@@ -160,15 +159,25 @@ namespace CSpoTUI
         static void GuiMain()
         {
             Application.Init();
-
-
-            Colors.Base.Focus = Terminal.Gui.Attribute.Make(Color.Cyan, Color.DarkGray);
+            /// <summary>
+            /// Sets the ColorScheme for all the parts of the program
+            /// Problem: Colors looks different between VS code and "KDE Konsole".
+            /// </summary>
+            Colors.Base.Focus = Terminal.Gui.Attribute.Make(Color.Red, Color.DarkGray);
             Colors.Base.Normal = Terminal.Gui.Attribute.Make(Color.Cyan, Color.DarkGray);
-            Colors.Base.HotFocus = Terminal.Gui.Attribute.Make(Color.BrightBlue, Color.Brown);
-            Colors.Base.HotNormal = Terminal.Gui.Attribute.Make(Color.Red, Color.BrightRed);
+            Colors.Base.HotFocus = Terminal.Gui.Attribute.Make(Color.Red, Color.Gray);
+            Colors.Base.HotNormal = Terminal.Gui.Attribute.Make(Color.Red, Color.Gray);
 
+            Colors.Menu.Focus = Terminal.Gui.Attribute.Make(Color.Red, Color.DarkGray);
+            Colors.Menu.Normal = Terminal.Gui.Attribute.Make(Color.Cyan, Color.DarkGray);
+            Colors.Menu.HotFocus = Terminal.Gui.Attribute.Make(Color.Red, Color.Gray);
+            Colors.Menu.HotNormal = Terminal.Gui.Attribute.Make(Color.Red, Color.Gray);
 
-
+            Colors.Dialog.Focus = Terminal.Gui.Attribute.Make(Color.Red, Color.DarkGray);
+            Colors.Dialog.Normal = Terminal.Gui.Attribute.Make(Color.Cyan, Color.DarkGray);
+            Colors.Dialog.HotFocus = Terminal.Gui.Attribute.Make(Color.Red, Color.Gray);
+            Colors.Dialog.HotNormal = Terminal.Gui.Attribute.Make(Color.Red, Color.Gray);
+            
             var top = new Toplevel()
             {
                 X = 0,
@@ -182,7 +191,7 @@ namespace CSpoTUI
             var MainWin = Application.Top;
             var Player = Application.Top;
 
-            var MainWindow = new MostMainMainWindowKey() //The window containing all other windows
+            var MainWindow = new Window("CSpoTUI") //The window containing all other windows
             {
                 X = 0,
                 Y = 0,
@@ -281,7 +290,7 @@ namespace CSpoTUI
 
             var ok = new Button(3, 14, "Ok") // Button for device selecting
             {
-                Clicked = () => { Application.RequestStop(); deviceToPlayFrom = DeviceList[DeviceListWin.SelectedItem]; }
+                Clicked = () => { Application.RequestStop(); deviceToPlayFrom = DeviceListID[DeviceListWin.SelectedItem]; System.Console.WriteLine(deviceToPlayFrom);}
             };
             var cancel = new Button(10, 14, "Cancel")
             {
@@ -373,12 +382,9 @@ namespace CSpoTUI
                 PrivateProfile profile = api.GetPrivateProfile();
 
                 string name = string.IsNullOrEmpty(profile.DisplayName) ? profile.Id : profile.DisplayName;
-                // When Enter is pressed this code runs
-                //  int pos = PlaylistsList.FindIndex(s => s == PlaylistListWin.SelectedItem.ToString());
                 int selectedItemInMain = MainListWin.SelectedItem;
                 string song = "spotify:track:" + MainWindowListID[selectedItemInMain];
 
-                //api.ResumePlayback(deviceId: "", contextUri: "spotify:track:" + MainWindowListID[sak], uris: null, "", 0);
                 api.ResumePlayback(
                     uris: new List<string>() { song },
                     positionMs: 0,
@@ -541,7 +547,7 @@ namespace CSpoTUI
         }
     }
 
-    class MostMainMainWindowKey : Window
+    class MostMainMainWindowKey : Window // Not in use
     {
         public Action Space_Pressed;
 
