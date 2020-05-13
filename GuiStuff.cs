@@ -39,14 +39,15 @@ namespace CSpoTUI
         private static List<string> MainWindowList = new List<string>(); //List of what currently is in main windows
         private static List<string> MainWindowListID = new List<string>(); // List of IDs of whats currently is in the main window
 
+        private static string[] CurrentlyPlayingBeforePause = new string[2]; // Saves what track and duration for playing track before pause
+
+
         private static float progress = 0.0f;
         private static float totalTime = 0.0f;
         private static float whatTime = 0.0f;
 
-
-        // List of ids of what currently is in main windows;
         private static string deviceToPlayFrom = "";
-        private static string TrackInfoString = "Notning playing";
+        private static string TrackInfoString = "Notning playing"; // Trackinfo before a track is started for the first time
 
 
         public Terminal.Gui.Key Key;
@@ -177,7 +178,7 @@ namespace CSpoTUI
             Colors.Dialog.Normal = Terminal.Gui.Attribute.Make(Color.Cyan, Color.DarkGray);
             Colors.Dialog.HotFocus = Terminal.Gui.Attribute.Make(Color.Red, Color.Gray);
             Colors.Dialog.HotNormal = Terminal.Gui.Attribute.Make(Color.Red, Color.Gray);
-            
+
             var top = new Toplevel()
             {
                 X = 0,
@@ -191,7 +192,7 @@ namespace CSpoTUI
             var MainWin = Application.Top;
             var Player = Application.Top;
 
-            var MainWindow = new Window("CSpoTUI") //The window containing all other windows
+            var MainWindow = new MostMainMainWindowKey() //The window containing all other windows
             {
                 X = 0,
                 Y = 0,
@@ -290,7 +291,7 @@ namespace CSpoTUI
 
             var ok = new Button(3, 14, "Ok") // Button for device selecting
             {
-                Clicked = () => { Application.RequestStop(); deviceToPlayFrom = DeviceListID[DeviceListWin.SelectedItem]; System.Console.WriteLine(deviceToPlayFrom);}
+                Clicked = () => { Application.RequestStop(); deviceToPlayFrom = DeviceListID[DeviceListWin.SelectedItem]; System.Console.WriteLine(deviceToPlayFrom); }
             };
             var cancel = new Button(10, 14, "Cancel")
             {
@@ -411,6 +412,32 @@ namespace CSpoTUI
                 if (context.Item != null)
                 {
                     api.PausePlayback();
+                }
+
+            };
+
+            MainWindow.Space_Pressed += () =>
+            {
+                PlaybackContext context = api.GetPlayback();
+
+                if (context.Item != null)
+                {
+                    if (context.IsPlaying == true)
+                    {
+                        CurrentlyPlayingBeforePause[0] = context.ProgressMs.ToString(); // Converts to string
+                        CurrentlyPlayingBeforePause[1] = context.Item.Uri;
+
+                        api.PausePlayback();
+                    }
+                    if (context.IsPlaying == false)
+                    {
+                        api.ResumePlayback(
+                        uris: new List<string>() { CurrentlyPlayingBeforePause[1] },
+                        positionMs: Convert.ToInt32(CurrentlyPlayingBeforePause[0]), // Converts it back to int :D
+                        offset: 0
+                        );
+                    }
+
                 }
 
             };
