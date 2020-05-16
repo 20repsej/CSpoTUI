@@ -41,16 +41,16 @@
           "lib/netstandard2.0/Newtonsoft.Json.dll": {}
         }
       },
-      "NStack.Core/0.11.0": {
+      "NStack.Core/0.14.0": {
         "type": "package",
         "compile": {
-          "lib/netstandard1.5/NStack.dll": {}
+          "lib/netstandard2.0/NStack.dll": {}
         },
         "runtime": {
-          "lib/netstandard1.5/NStack.dll": {}
+          "lib/netstandard2.0/NStack.dll": {}
         }
       },
-      "SpotifyAPI.Web/5.1.0": {
+      "SpotifyAPI.Web/5.1.1": {
         "type": "package",
         "dependencies": {
           "Newtonsoft.Json": "12.0.3"
@@ -415,20 +415,10 @@
           "ref/netstandard1.3/System.Threading.Tasks.dll": {}
         }
       },
-      "System.ValueTuple/4.4.0": {
-        "type": "package",
-        "compile": {
-          "ref/netcoreapp2.0/_._": {}
-        },
-        "runtime": {
-          "lib/netcoreapp2.0/_._": {}
-        }
-      },
-      "Terminal.Gui/0.70.0": {
+      "Terminal.Gui/0.81.0": {
         "type": "package",
         "dependencies": {
-          "NStack.Core": "0.11.0",
-          "System.ValueTuple": "4.4.0"
+          "NStack.Core": "0.14.0"
         },
         "compile": {
           "lib/netstandard2.0/Terminal.Gui.dll": {}
@@ -530,28 +520,28 @@
         "packageIcon.png"
       ]
     },
-    "NStack.Core/0.11.0": {
-      "sha512": "LQrIt/ZS1+CXAXDN/1nEZuoyOEyrAqQVD9r5sWce22JkwMOHc3NUq1FmBkKdCjZzWJcooupMPvc8IQuQqADSRg==",
+    "NStack.Core/0.14.0": {
+      "sha512": "zYNd8033b7BPIw7LSNMFu3H1WovQa2XQXd3cZ+Xs/0EPqy0ZhT6bKr4+8eqFpvpD0yx2QvwkvLL0bCqSnJxKNA==",
       "type": "package",
-      "path": "nstack.core/0.11.0",
+      "path": "nstack.core/0.14.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "lib/netstandard1.5/NStack.dll",
-        "nstack.core.0.11.0.nupkg.sha512",
+        "lib/netstandard2.0/NStack.dll",
+        "nstack.core.0.14.0.nupkg.sha512",
         "nstack.core.nuspec"
       ]
     },
-    "SpotifyAPI.Web/5.1.0": {
-      "sha512": "CKN1ww0Bcc9i4gaLpxm1dtD2ta1FXA7NrSezIUjOpnBHx+D4lPEpl1mbdhj/kxOUl89siPbvNEYK8vDDK8v+3A==",
+    "SpotifyAPI.Web/5.1.1": {
+      "sha512": "gEl2NdSBdPLs3bpTt5PF3TomGBB1Rw20m+eYYHwEz4OgiO3eG4bt7LYf49K0Zna2YUXHlZae2UBJVKFwRYOWgg==",
       "type": "package",
-      "path": "spotifyapi.web/5.1.0",
+      "path": "spotifyapi.web/5.1.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "lib/netstandard2.0/SpotifyAPI.Web.dll",
         "lib/netstandard2.0/SpotifyAPI.Web.xml",
-        "spotifyapi.web.5.1.0.nupkg.sha512",
+        "spotifyapi.web.5.1.1.nupkg.sha512",
         "spotifyapi.web.nuspec"
       ]
     },
@@ -2077,63 +2067,18 @@
         "system.threading.tasks.nuspec"
       ]
     },
-    "System.ValueTuple/4.4.0": {
-      "sha512": "BahUww/+mdP4ARCAh2RQhQTg13wYLVrBb9SYVgW8ZlrwjraGCXHGjo0oIiUfZ34LUZkMMR+RAzR7dEY4S1HeQQ==",
+    "Terminal.Gui/0.81.0": {
+      "sha512": "HSW9pvxXC+tzspTlUaqksNCoum5L7purbf/vXZgaMHHG5oye7DtxlOKjvSXMSKlxHN4JxZvfEGPUbjcA2B81sQ==",
       "type": "package",
-      "path": "system.valuetuple/4.4.0",
+      "path": "terminal.gui/0.81.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "LICENSE.TXT",
-        "THIRD-PARTY-NOTICES.TXT",
-        "lib/MonoAndroid10/_._",
-        "lib/MonoTouch10/_._",
-        "lib/net461/System.ValueTuple.dll",
-        "lib/net461/System.ValueTuple.xml",
-        "lib/net47/System.ValueTuple.dll",
-        "lib/net47/System.ValueTuple.xml",
-        "lib/netcoreapp2.0/_._",
-        "lib/netstandard1.0/System.ValueTuple.dll",
-        "lib/netstandard1.0/System.ValueTuple.xml",
-        "lib/netstandard2.0/_._",
-        "lib/portable-net40+sl4+win8+wp8/System.ValueTuple.dll",
-        "lib/portable-net40+sl4+win8+wp8/System.ValueTuple.xml",
-        "lib/xamarinios10/_._",
-        "lib/xamarinmac20/_._",
-        "lib/xamarintvos10/_._",
-        "lib/xamarinwatchos10/_._",
-        "ref/MonoAndroid10/_._",
-        "ref/MonoTouch10/_._",
-        "ref/net461/System.ValueTuple.dll",
-        "ref/net461/System.ValueTuple.xml",
-        "ref/net47/System.ValueTuple.dll",
-        "ref/net47/System.ValueTuple.xml",
-        "ref/netcoreapp2.0/_._",
-        "ref/netstandard2.0/_._",
-        "ref/portable-net40+sl4+win8+wp8/System.ValueTuple.dll",
-        "ref/portable-net40+sl4+win8+wp8/System.ValueTuple.xml",
-        "ref/xamarinios10/_._",
-        "ref/xamarinmac20/_._",
-        "ref/xamarintvos10/_._",
-        "ref/xamarinwatchos10/_._",
-        "system.valuetuple.4.4.0.nupkg.sha512",
-        "system.valuetuple.nuspec",
-        "useSharedDesignerContext.txt",
-        "version.txt"
-      ]
-    },
-    "Terminal.Gui/0.70.0": {
-      "sha512": "pJ6pfv4QXostD6fe1p86bEZm71LY0a7il9cjl0jb1n3z8USIhxNQkbZQLbAuq8dDVD/8VKJNsLohL2T1JnOh3w==",
-      "type": "package",
-      "path": "terminal.gui/0.70.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "lib/net461/Terminal.Gui.dll",
-        "lib/net461/Terminal.Gui.xml",
+        "lib/net472/Terminal.Gui.dll",
+        "lib/net472/Terminal.Gui.xml",
         "lib/netstandard2.0/Terminal.Gui.dll",
         "lib/netstandard2.0/Terminal.Gui.xml",
-        "terminal.gui.0.70.0.nupkg.sha512",
+        "terminal.gui.0.81.0.nupkg.sha512",
         "terminal.gui.nuspec"
       ]
     },
@@ -2157,9 +2102,9 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
-      "SpotifyAPI.Web >= 5.1.0",
+      "SpotifyAPI.Web >= 5.1.1",
       "SpotifyAPI.Web.Auth >= 5.1.0",
-      "Terminal.Gui >= 0.70.0"
+      "Terminal.Gui >= 0.81.0"
     ]
   },
   "packageFolders": {
@@ -2199,7 +2144,7 @@
         "dependencies": {
           "SpotifyAPI.Web": {
             "target": "Package",
-            "version": "[5.1.0, )"
+            "version": "[5.1.1, )"
           },
           "SpotifyAPI.Web.Auth": {
             "target": "Package",
@@ -2207,7 +2152,7 @@
           },
           "Terminal.Gui": {
             "target": "Package",
-            "version": "[0.70.0, )"
+            "version": "[0.81.0, )"
           }
         },
         "imports": [

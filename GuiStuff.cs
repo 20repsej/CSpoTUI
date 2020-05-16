@@ -7,10 +7,6 @@ using SpotifyAPI.Web.Auth;
 using SpotifyAPI.Web.Enums;
 using SpotifyAPI.Web.Models;
 using System.Collections.Generic;
-using System.Reflection.Metadata.Ecma335; // Dont know
-using Unosquare.Swan; // Dont know
-using System.Diagnostics; // Dont know
-
 
 
 namespace CSpoTUI
@@ -48,6 +44,9 @@ namespace CSpoTUI
 
         private static string deviceToPlayFrom = "";
         private static string TrackInfoString = "Notning playing"; // Trackinfo before a track is started for the first time
+
+        private static string repeatMode = "Off";
+        private static bool shuffleMode = true;
 
 
         public Terminal.Gui.Key Key;
@@ -164,20 +163,20 @@ namespace CSpoTUI
             /// Sets the ColorScheme for all the parts of the program
             /// Problem: Colors looks different between VS code and "KDE Konsole".
             /// </summary>
-            Colors.Base.Focus = Terminal.Gui.Attribute.Make(Color.Red, Color.DarkGray);
-            Colors.Base.Normal = Terminal.Gui.Attribute.Make(Color.Cyan, Color.DarkGray);
-            Colors.Base.HotFocus = Terminal.Gui.Attribute.Make(Color.Red, Color.Gray);
-            Colors.Base.HotNormal = Terminal.Gui.Attribute.Make(Color.Red, Color.Gray);
+            Colors.Base.Focus = Application.Driver.MakeAttribute(Color.Red, Color.DarkGray);
+            Colors.Base.Normal = Application.Driver.MakeAttribute(Color.Cyan, Color.DarkGray);
+            Colors.Base.HotFocus = Application.Driver.MakeAttribute(Color.Red, Color.DarkGray);
+            //Colors.Base.HotNormal = Application.Driver.MakeAttribute(Color.DarkGray, Color.Green);
 
-            Colors.Menu.Focus = Terminal.Gui.Attribute.Make(Color.Red, Color.DarkGray);
-            Colors.Menu.Normal = Terminal.Gui.Attribute.Make(Color.Cyan, Color.DarkGray);
-            Colors.Menu.HotFocus = Terminal.Gui.Attribute.Make(Color.Red, Color.Gray);
-            Colors.Menu.HotNormal = Terminal.Gui.Attribute.Make(Color.Red, Color.Gray);
+            Colors.Menu.Focus = Application.Driver.MakeAttribute(Color.Red, Color.DarkGray);
+            Colors.Menu.Normal = Application.Driver.MakeAttribute(Color.Cyan, Color.DarkGray);
+            Colors.Menu.HotFocus = Application.Driver.MakeAttribute(Color.Red, Color.Gray);
+            Colors.Menu.HotNormal = Application.Driver.MakeAttribute(Color.Red, Color.Gray);
 
-            Colors.Dialog.Focus = Terminal.Gui.Attribute.Make(Color.Red, Color.DarkGray);
-            Colors.Dialog.Normal = Terminal.Gui.Attribute.Make(Color.Cyan, Color.DarkGray);
-            Colors.Dialog.HotFocus = Terminal.Gui.Attribute.Make(Color.Red, Color.Gray);
-            Colors.Dialog.HotNormal = Terminal.Gui.Attribute.Make(Color.Red, Color.Gray);
+            Colors.Dialog.Focus = Application.Driver.MakeAttribute(Color.Red, Color.DarkGray);
+            Colors.Dialog.Normal = Application.Driver.MakeAttribute(Color.Cyan, Color.DarkGray);
+            Colors.Dialog.HotFocus = Application.Driver.MakeAttribute(Color.Red, Color.Gray);
+            Colors.Dialog.HotNormal = Application.Driver.MakeAttribute(Color.Red, Color.Gray);
 
             var top = new Toplevel()
             {
@@ -298,9 +297,7 @@ namespace CSpoTUI
                 Clicked = () => Application.RequestStop()
             };
 
-            var current = new TextField("");
             var DeviceDialog = new Dialog("Devices", 60, 18, ok, cancel);
-            DeviceListWin.SelectedChanged += () => current.Text = DeviceList[DeviceListWin.SelectedItem];
 
 
             var ProgressSong = new ProgressBar() { X = 1, Y = 0, Width = Dim.Fill(), Height = Dim.Fill() }; // Progressbar for playing track
@@ -416,6 +413,52 @@ namespace CSpoTUI
 
             };
 
+            MainWindow.PreviousTrack_Pressed += () =>
+            {
+                api.SkipPlaybackToPrevious();
+            };
+            MainWindow.NextTrack_Pressed += () =>
+            {
+                api.SkipPlaybackToNext();
+            };
+
+            MainWindow.Repeat_Pressed += () =>
+            {
+
+                if (repeatMode == "Off")
+                {
+                    api.SetRepeatMode(RepeatState.Track);
+                    repeatMode = "Track";
+                }
+                else if (repeatMode == "Track")
+                {
+                    api.SetRepeatMode(RepeatState.Context);
+                    repeatMode = "Context";
+                }
+                else if (repeatMode == "Context")
+                {
+                    api.SetRepeatMode(RepeatState.Off);
+                    repeatMode = "Off";
+                }
+
+            };
+
+            MainWindow.Shuffle_Pressed += () =>
+            {
+
+                if (shuffleMode == true)
+                {
+                    api.SetShuffle(false);
+                    shuffleMode = false;
+                }
+                else if (shuffleMode == false)
+                {
+                    api.SetShuffle(true);
+                    shuffleMode = true;
+                }
+
+            };
+
             MainWindow.Space_Pressed += () =>
             {
                 PlaybackContext context = api.GetPlayback();
@@ -450,7 +493,7 @@ namespace CSpoTUI
                     totalTime = context.Item.DurationMs;
                     whatTime = context.ProgressMs;
 
-                    TrackInfoString = context.Item.Name + " - " + context.Item.Artists[0];
+                    TrackInfoString = context.Item.Name + " - " + context.Item.Artists[0] + "   ||  Repeat: " + repeatMode + "  ||  Shuffle: " + shuffleMode;
                     TrackInfo.Text = TrackInfoString;
                     TrackInfo.SetNeedsDisplay();
                 }
@@ -471,7 +514,7 @@ namespace CSpoTUI
             /// Also adds the windows to the main window
             /// </summary>
             SearchWin.Add(SearchText);
-            DeviceDialog.Add(DeviceListWin, current);
+            DeviceDialog.Add(DeviceListWin);
             PlayerWin.Add(ProgressSong, TrackInfo);
             MainWinWin.Add(MainListWin);
             LibraryWin.Add(LibraryListWin);
@@ -577,6 +620,11 @@ namespace CSpoTUI
     class MostMainMainWindowKey : Window // Not in use
     {
         public Action Space_Pressed;
+        public Action Enter_Pressed;
+        public Action Repeat_Pressed;
+        public Action Shuffle_Pressed;
+        public Action PreviousTrack_Pressed;
+        public Action NextTrack_Pressed;
 
         public MostMainMainWindowKey() : base("CSpoTUI")
         {
@@ -588,6 +636,46 @@ namespace CSpoTUI
                 if (Space_Pressed != null)
                 {
                     Space_Pressed.Invoke();
+                    return true;
+                }
+            }
+            if (keyEvent.Key == Key.Enter)
+            {
+                if (Enter_Pressed != null)
+                {
+                    Enter_Pressed.Invoke();
+                    return true;
+                }
+            }
+            if (keyEvent.Key == Key.ControlR && keyEvent.IsAlt)
+            {
+                if (Repeat_Pressed != null)
+                {
+                    Repeat_Pressed.Invoke();
+                    return true;
+                }
+            }
+            if (keyEvent.Key == Key.ControlS && keyEvent.IsAlt)
+            {
+                if (Shuffle_Pressed != null)
+                {
+                    Shuffle_Pressed.Invoke();
+                    return true;
+                }
+            }
+            if (keyEvent.Key == Key.ControlB && keyEvent.IsAlt)
+            {
+                if (PreviousTrack_Pressed != null)
+                {
+                    PreviousTrack_Pressed.Invoke();
+                    return true;
+                }
+            }
+            if (keyEvent.Key == Key.ControlN && keyEvent.IsAlt)
+            {
+                if (NextTrack_Pressed != null)
+                {
+                    NextTrack_Pressed.Invoke();
                     return true;
                 }
             }

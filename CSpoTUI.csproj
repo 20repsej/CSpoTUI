@@ -6,9 +6,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="SpotifyAPI.Web" Version="5.1.0" />
+    <PackageReference Include="SpotifyAPI.Web" Version="5.1.1" />
     <PackageReference Include="SpotifyAPI.Web.Auth" Version="5.1.0" />
-    <PackageReference Include="Terminal.Gui" Version="0.70.0" />
+    <PackageReference Include="Terminal.Gui" Version="0.81.0" />
     
   </ItemGroup>
 
