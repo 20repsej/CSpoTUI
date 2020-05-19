@@ -647,7 +647,7 @@ namespace CSpoTUI
                     return true;
                 }
             }
-            if (keyEvent.Key == Key.ControlR && keyEvent.IsAlt)
+            if (keyEvent.KeyValue == 82) // Shift + R   Repeat
             {
                 if (Repeat_Pressed != null)
                 {
@@ -655,7 +655,7 @@ namespace CSpoTUI
                     return true;
                 }
             }
-            if (keyEvent.Key == Key.ControlS && keyEvent.IsAlt)
+            if (keyEvent.KeyValue == 83) //Shift + S    Shuffle
             {
                 if (Shuffle_Pressed != null)
                 {
@@ -663,7 +663,7 @@ namespace CSpoTUI
                     return true;
                 }
             }
-            if (keyEvent.Key == Key.ControlB && keyEvent.IsAlt)
+            if (keyEvent.KeyValue == 65) //Shift + A    Prev track
             {
                 if (PreviousTrack_Pressed != null)
                 {
@@ -671,7 +671,7 @@ namespace CSpoTUI
                     return true;
                 }
             }
-            if (keyEvent.Key == Key.ControlN && keyEvent.IsAlt)
+            if (keyEvent.KeyValue == 68) //Shift + D    Next track
             {
                 if (NextTrack_Pressed != null)
                 {

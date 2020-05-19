@@ -62,11 +62,11 @@
           "lib/netstandard2.0/SpotifyAPI.Web.dll": {}
         }
       },
-      "SpotifyAPI.Web.Auth/5.1.0": {
+      "SpotifyAPI.Web.Auth/5.1.1": {
         "type": "package",
         "dependencies": {
           "EmbedIO": "2.9.2",
-          "SpotifyAPI.Web": "5.1.0"
+          "SpotifyAPI.Web": "5.1.1"
         },
         "compile": {
           "lib/netstandard2.0/SpotifyAPI.Web.Auth.dll": {}
@@ -545,16 +545,16 @@
         "spotifyapi.web.nuspec"
       ]
     },
-    "SpotifyAPI.Web.Auth/5.1.0": {
-      "sha512": "WWVpkQ3BmBIaSHOfzAlWpJdwLJ1DG/3uUdcMyyYTTQZAF3PtNAoZNLpWAwGq/nq3CJKAY/wzuHuhbS1xHV8G8A==",
+    "SpotifyAPI.Web.Auth/5.1.1": {
+      "sha512": "SNh/RTMitkSVuGI7Cs6y7Z7mbfXdKlGa5bv+WmiGG3R2x5/t48IkV+amlz3pjXDl7API7X/sPzKW1pIRqokfHA==",
       "type": "package",
-      "path": "spotifyapi.web.auth/5.1.0",
+      "path": "spotifyapi.web.auth/5.1.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "lib/netstandard2.0/SpotifyAPI.Web.Auth.dll",
         "lib/netstandard2.0/SpotifyAPI.Web.Auth.xml",
-        "spotifyapi.web.auth.5.1.0.nupkg.sha512",
+        "spotifyapi.web.auth.5.1.1.nupkg.sha512",
         "spotifyapi.web.auth.nuspec"
       ]
     },
@@ -2103,7 +2103,7 @@
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
       "SpotifyAPI.Web >= 5.1.1",
-      "SpotifyAPI.Web.Auth >= 5.1.0",
+      "SpotifyAPI.Web.Auth >= 5.1.1",
       "Terminal.Gui >= 0.81.0"
     ]
   },
@@ -2148,7 +2148,7 @@
           },
           "SpotifyAPI.Web.Auth": {
             "target": "Package",
-            "version": "[5.1.0, )"
+            "version": "[5.1.1, )"
           },
           "Terminal.Gui": {
             "target": "Package",

@@ -9,7 +9,7 @@
       "CSpoTUI/1.0.0": {
         "dependencies": {
           "SpotifyAPI.Web": "5.1.1",
-          "SpotifyAPI.Web.Auth": "5.1.0",
+          "SpotifyAPI.Web.Auth": "5.1.1",
           "Terminal.Gui": "0.81.0"
         },
         "runtime": {
@@ -56,7 +56,7 @@
           }
         }
       },
-      "SpotifyAPI.Web.Auth/5.1.0": {
+      "SpotifyAPI.Web.Auth/5.1.1": {
         "dependencies": {
           "EmbedIO": "2.9.2",
           "SpotifyAPI.Web": "5.1.1"
@@ -334,12 +334,12 @@
       "path": "spotifyapi.web/5.1.1",
       "hashPath": "spotifyapi.web.5.1.1.nupkg.sha512"
     },
-    "SpotifyAPI.Web.Auth/5.1.0": {
+    "SpotifyAPI.Web.Auth/5.1.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-WWVpkQ3BmBIaSHOfzAlWpJdwLJ1DG/3uUdcMyyYTTQZAF3PtNAoZNLpWAwGq/nq3CJKAY/wzuHuhbS1xHV8G8A==",
-      "path": "spotifyapi.web.auth/5.1.0",
-      "hashPath": "spotifyapi.web.auth.5.1.0.nupkg.sha512"
+      "sha512": "sha512-SNh/RTMitkSVuGI7Cs6y7Z7mbfXdKlGa5bv+WmiGG3R2x5/t48IkV+amlz3pjXDl7API7X/sPzKW1pIRqokfHA==",
+      "path": "spotifyapi.web.auth/5.1.1",
+      "hashPath": "spotifyapi.web.auth.5.1.1.nupkg.sha512"
     },
     "System.Collections/4.3.0": {
       "type": "package",
