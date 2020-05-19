@@ -1,5 +1,5 @@
 
-using Terminal.Gui; // Gui.cs
+/*using Terminal.Gui; // Gui.cs     //Just a copy of the program
 using System;
 using System.Threading.Tasks;
 using SpotifyAPI.Web; // SpotifyAPI-NET
@@ -52,8 +52,8 @@ namespace CSpoTUI
         public Terminal.Gui.Key Key;
 
         static SpotifyAPI.Web.SpotifyWebAPI api;
-        private static string _clientId = "39b4c97ab78345f6a465eadad7d5c1ef"; //"";
-        private static string _secretId = "35f4a854686545c8abf0ffcc9aaf1dd1"; //"";
+        private static string _clientId = ""; //"";
+        private static string _secretId = ""; //"";
         public static void Main(string[] args)
         {
             _clientId = string.IsNullOrEmpty(_clientId) ?
@@ -166,7 +166,7 @@ namespace CSpoTUI
             Colors.Base.Focus = Application.Driver.MakeAttribute(Color.Red, Color.DarkGray);
             Colors.Base.Normal = Application.Driver.MakeAttribute(Color.Cyan, Color.DarkGray);
             Colors.Base.HotFocus = Application.Driver.MakeAttribute(Color.Red, Color.DarkGray);
-            //Colors.Base.HotNormal = Application.Driver.MakeAttribute(Color.DarkGray, Color.Green);
+            Colors.Base.HotNormal = Application.Driver.MakeAttribute(Color.DarkGray, Color.Green);
 
             Colors.Menu.Focus = Application.Driver.MakeAttribute(Color.Red, Color.DarkGray);
             Colors.Menu.Normal = Application.Driver.MakeAttribute(Color.Cyan, Color.DarkGray);
@@ -707,5 +707,5 @@ namespace CSpoTUI
         }
     }
 
-}
+}*/
 
