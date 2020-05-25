@@ -35,9 +35,9 @@ namespace CSpoTUI
 
         private static string[] CurrentlyPlayingBeforePause = new string[2]; // Saves what track and duration for playing track before pause
 
-        private static float progress = 0.0f;
-        private static float totalTime = 0.0f;
-        private static float whatTime = 0.0f;
+        private static float progress = 0.0f; // Progress of track
+        private static float totalTime = 0.0f; // Used to calculate progress
+        private static float whatTime = 0.0f; // Used to calculate progress
 
         private static string deviceToPlayFrom = "";
         private static string TrackInfoString = "Notning playing"; // Trackinfo before a track is started for the first time
@@ -80,9 +80,18 @@ namespace CSpoTUI
         };
 
             auth.Start();
-            System.Console.WriteLine("Maybe wait a little");
+            System.Console.WriteLine("Press Enter to continue"); // Text before the GUI starts
             System.Console.WriteLine("");
-            System.Console.WriteLine("Press any key to continue...");
+            System.Console.WriteLine("|--------------------------|");
+            System.Console.WriteLine("| User information:        |");
+            System.Console.WriteLine("|                          |");
+            System.Console.WriteLine("| Space to pause/play      |");
+            System.Console.WriteLine("| Shift + S to shuffle     |");
+            System.Console.WriteLine("| Shift + R to repeat      |");
+            System.Console.WriteLine("| Shift + A for prev track |");
+            System.Console.WriteLine("| Shift + D for next track |");
+            System.Console.WriteLine("| F9 or ESC + 9 for menu   |");
+            System.Console.WriteLine("|--------------------------|");
             auth.OpenBrowser(); // Starts an internal HTTP Server
 
             Console.ReadLine();
@@ -146,7 +155,7 @@ namespace CSpoTUI
             Colors.Base.Focus = Application.Driver.MakeAttribute(Color.Red, Color.DarkGray);
             Colors.Base.Normal = Application.Driver.MakeAttribute(Color.Cyan, Color.DarkGray);
             Colors.Base.HotFocus = Application.Driver.MakeAttribute(Color.Red, Color.DarkGray);
-            Colors.Base.HotNormal = Application.Driver.MakeAttribute(Color.DarkGray, Color.Green);
+           // Colors.Base.HotNormal = Application.Driver.MakeAttribute(Color.DarkGray, Color.Green); // Makes shit not work :(
 
             Colors.Menu.Focus = Application.Driver.MakeAttribute(Color.Red, Color.DarkGray);
             Colors.Menu.Normal = Application.Driver.MakeAttribute(Color.Cyan, Color.DarkGray);
@@ -317,6 +326,7 @@ namespace CSpoTUI
                 playlist.Items.ForEach(track => MainWindowList.Add(track.Track.Name));
                 playlist.Items.ForEach(track => MainWindowListID.Add(track.Track.Id));
 
+               // MainWinWin.SetFocus(MainWinWin);
                 MainListWin.SetSource(MainWindowList);
                 MainWinWin.SetNeedsDisplay();
             };
@@ -456,6 +466,7 @@ namespace CSpoTUI
 
                     TrackInfoString = context.Item.Name + " - " + context.Item.Artists[0] + "   ||  Repeat: " + repeatMode + "  ||  Shuffle: " + shuffleMode;
                     TrackInfo.Text = TrackInfoString;
+                    System.Console.WriteLine(context.Item.Artists[0]);
                     TrackInfo.SetNeedsDisplay();
                 }
 
@@ -573,7 +584,7 @@ namespace CSpoTUI
         }
     }
 
-    class MostMainMainWindowKey : Window // Not in use
+    class MostMainMainWindowKey : Window // !local key input
     {
         public Action Space_Pressed;
         public Action Enter_Pressed;
