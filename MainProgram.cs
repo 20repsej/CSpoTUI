@@ -45,7 +45,7 @@ namespace CSpoTUI
         private static string repeatMode = "Off";
         private static bool shuffleMode = true;
 
-        public Terminal.Gui.Key Key;
+        //public Terminal.Gui.Key Key;
 
         static SpotifyAPI.Web.SpotifyWebAPI api;
         private static string _clientId = ""; // Add your own clientID here
@@ -155,7 +155,7 @@ namespace CSpoTUI
             Colors.Base.Focus = Application.Driver.MakeAttribute(Color.Red, Color.DarkGray);
             Colors.Base.Normal = Application.Driver.MakeAttribute(Color.Cyan, Color.DarkGray);
             Colors.Base.HotFocus = Application.Driver.MakeAttribute(Color.Red, Color.DarkGray);
-           // Colors.Base.HotNormal = Application.Driver.MakeAttribute(Color.DarkGray, Color.Green); // Makes shit not work :(
+            // Colors.Base.HotNormal = Application.Driver.MakeAttribute(Color.DarkGray, Color.Green); // Makes shit not work :(
 
             Colors.Menu.Focus = Application.Driver.MakeAttribute(Color.Red, Color.DarkGray);
             Colors.Menu.Normal = Application.Driver.MakeAttribute(Color.Cyan, Color.DarkGray);
@@ -326,7 +326,7 @@ namespace CSpoTUI
                 playlist.Items.ForEach(track => MainWindowList.Add(track.Track.Name));
                 playlist.Items.ForEach(track => MainWindowListID.Add(track.Track.Id));
 
-               // MainWinWin.SetFocus(MainWinWin);
+                // MainWinWin.SetFocus(MainWinWin);
                 MainListWin.SetSource(MainWindowList);
                 MainWinWin.SetNeedsDisplay();
             };
@@ -459,14 +459,15 @@ namespace CSpoTUI
             Application.MainLoop.AddTimeout(TimeSpan.FromMilliseconds(1000), x =>
             {
                 PlaybackContext context = api.GetPlayback();
+
                 if (context.Item != null)
                 {
                     totalTime = context.Item.DurationMs;
                     whatTime = context.ProgressMs;
 
-                    TrackInfoString = context.Item.Name + " - " + context.Item.Artists[0] + "   ||  Repeat: " + repeatMode + "  ||  Shuffle: " + shuffleMode;
+                    TrackInfoString = context.Item.Name + " - " + context.Item.Artists[0].Name + "   ||  Repeat: " + repeatMode + "  ||  Shuffle: " + shuffleMode;
                     TrackInfo.Text = TrackInfoString;
-                    System.Console.WriteLine(context.Item.Artists[0]);
+
                     TrackInfo.SetNeedsDisplay();
                 }
 
